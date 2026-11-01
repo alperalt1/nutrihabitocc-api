@@ -1,0 +1,13 @@
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - target: 8421
+        published: 8421
+        protocol: tcp
+        mode: ingress
+    env_file:
+      - .env

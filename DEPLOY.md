@@ -43,6 +43,49 @@ docker run --rm -p 8421:8421 --env-file .env nutrihabit-api
 La API aplica las migraciones de EF Core al iniciar. El endpoint de salud es
 `GET /health`.
 
+## Docker Compose con puerto publicado
+
+Las **Applications** de Dokploy enrutan por Traefik y no publican puertos en el
+host. Para usar Cloudflare Tunnel por puerto, despliega la API como **Docker
+Compose** con `docker-compose.api.yml`:
+
+```bash
+cp .env.example .env   # completar credenciales
+docker compose -f docker-compose.api.yml up -d --build
+```
+
+El Compose publica:
+
+```text
+0.0.0.0:8421->8421/tcp
+```
+
+Verifica:
+
+```bash
+curl http://localhost:8421/health
+```
+
+En Dokploy:
+
+1. Crea un servicio **Docker Compose**.
+2. Compose Path: `docker-compose.api.yml`.
+3. Configura las variables de entorno en Dokploy; se escriben en `.env`.
+4. Deploy.
+5. Confirma que `docker ps` muestre `0.0.0.0:8421->8421/tcp`.
+
+Cloudflare Tunnel puede apuntar a:
+
+```text
+http://localhost:8421
+```
+
+o, si corre en la misma red Docker:
+
+```text
+http://<servicio-api>:8421
+```
+
 ## Dokploy
 
 1. Crea una aplicación en el mismo proyecto `nutrihabit`.
