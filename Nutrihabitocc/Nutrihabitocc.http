@@ -1,0 +1,6 @@
+@Nutrihabitocc_HostAddress = http://localhost:5264
+
+GET {{Nutrihabitocc_HostAddress}}/health
+Accept: application/json
+
+###

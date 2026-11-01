@@ -1,0 +1,12 @@
+.git
+.gitignore
+.idea
+.vs
+**/bin
+**/obj
+**/*.user
+**/.DS_Store
+Nutrihabitocc/appsettings.Development.json
+Nutrihabitocc/appsettings.Production.json
+Nutrihabitocc/appsettings.Staging.json
+.env
